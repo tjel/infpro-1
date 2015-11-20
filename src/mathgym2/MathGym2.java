@@ -16,6 +16,8 @@ import mathgym2.modules.Dodawanie;
  */
 public class MathGym2 {
 
+    
+    //tylko cos sprawdzam
     /**
      * @param args the command line arguments
      */
