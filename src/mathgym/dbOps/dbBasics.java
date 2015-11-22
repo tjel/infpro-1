@@ -69,15 +69,36 @@ public class dbBasics extends Thread {
         System.out.println("Operation successful");
     }
     
+    public static int dbSelectCost(int id) throws SQLException{
+        String query = "SELECT cost FROM modules WHERE id ="+ id + ";";
+        ResultSet rs = stmt.executeQuery(query);
+        int cost = 0;
+        while(rs.next()){
+        cost = rs.getInt("cost");
+        }
+        rs.close();
+        return cost;
+    }
+    
     /**
      *
      * @param id wejœciowy parametr dla operacji wstawiania do bazy danych. Klucz g³ówny.
      * @param name wejœciowy parametr dla operacji wstawiania do bazy danych. Nazwa osi¹gniêcia
      * @throws SQLException
      */
-    public static void dbInsert(int id,String name) throws SQLException{
-        String query = "INSERT INTO modules (id,name) VALUES (" + id + ", '" + name + "')";
+    public static void dbInsertMinimal(int id,String name) throws SQLException{
+        String query = "INSERT INTO modules (id,name) VALUES (" + id + ", '" + name + "');";
         stmt.executeUpdate(query);
+        c.commit();
         System.out.println("Insert successful.");
     }
+    
+    public static void dbUpdadeCost(int id,int cost) throws SQLException{
+        String query = "UPDATE modules SET cost = "+ cost +" WHERE id = "+ id + ";";
+        stmt.executeUpdate(query);
+        c.commit();
+        System.out.println("Update successful");
+    }
+    
+    
 }
