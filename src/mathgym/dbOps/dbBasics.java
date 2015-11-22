@@ -9,12 +9,17 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
+ *  
  * @author zajec_000
  */
 public class dbBasics extends Thread {
     private static Connection c;
     private static Statement stmt;
+
+    /**
+     * Konstruktor na potrzeby w¹tku
+     * @throws ClassNotFoundException
+     */
     public dbBasics() throws ClassNotFoundException{
        Class.forName("org.sqlite.JDBC");
         try {
@@ -30,7 +35,11 @@ public class dbBasics extends Thread {
         
     }
     
-    
+    /**
+     *
+     * @param query wejœciowe dowolne zapytanie u¿ytkownika
+     * @throws SQLException
+     */
     public static void dbSelect(String query) throws SQLException{
         ResultSet rs = stmt.executeQuery(query);
         while(rs.next()){
@@ -60,7 +69,12 @@ public class dbBasics extends Thread {
         System.out.println("Operation successful");
     }
     
-    
+    /**
+     *
+     * @param id wejœciowy parametr dla operacji wstawiania do bazy danych. Klucz g³ówny.
+     * @param name wejœciowy parametr dla operacji wstawiania do bazy danych. Nazwa osi¹gniêcia
+     * @throws SQLException
+     */
     public static void dbInsert(int id,String name) throws SQLException{
         String query = "INSERT INTO modules (id,name) VALUES (" + id + ", '" + name + "')";
         stmt.executeUpdate(query);
