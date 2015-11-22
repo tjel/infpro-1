@@ -13,9 +13,9 @@ import java.util.logging.Logger;
  * @author zajec_000
  */
 public class dbCreate {
-    public static void main(String args[]){
-        Connection c = null;
-        Statement stmt = null;
+    public static void Create_DB(){
+        Connection c;
+        Statement stmt;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:modules.db");
@@ -37,9 +37,7 @@ public class dbCreate {
             stmt.close();
             
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(dbCreate.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(dbCreate.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Table created!");
