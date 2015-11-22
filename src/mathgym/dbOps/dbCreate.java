@@ -31,9 +31,9 @@ public class dbCreate {
                     "curr_lvl INTEGER DEFAULT 0," +
                     "cost INTEGER DEFAULT 0," +
                     "points INTEGER DEFAULT 0," +
-                    "available INTEGER DEFAULT 0," +
-                    "active INTEGER DEFAULT 0," +
-                    "owned INTEGER DEFAULT 0," +
+                    "available INTEGER DEFAULT 0 CHECK (available = 1 or (available = 0))," +
+                    "active INTEGER DEFAULT 0 CHECK (active = 1 or (active = 0))," +
+                    "owned INTEGER DEFAULT 0 CHECK (owned = 1 or (owned = 0))," +
                     "successful INTEGER DEFAULT 0," +
                     "unsuccessful INTEGER DEFAULT 0," +
                     "PRIMARY KEY (id))";
