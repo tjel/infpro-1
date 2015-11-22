@@ -43,7 +43,7 @@ public class dbBasics extends Thread {
             int active = rs.getInt("active");
             int owned = rs.getInt("owned");
             int successful = rs.getInt("successful");
-            int unsuccessful = rs.getInt("unsuccesful");
+            int unsuccessful = rs.getInt("unsuccessful");
             System.out.println(id + "\t" + name +
                     "\t" + curr_lvl + 
                     "\t" + cost + 
@@ -58,5 +58,12 @@ public class dbBasics extends Thread {
         
         rs.close();
         System.out.println("Operation successful");
+    }
+    
+    
+    public static void dbInsert(int id,String name) throws SQLException{
+        String query = "INSERT INTO modules (id,name) VALUES (" + id + ", '" + name + "')";
+        stmt.executeUpdate(query);
+        System.out.println("Insert successful.");
     }
 }
