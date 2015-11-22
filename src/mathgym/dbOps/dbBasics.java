@@ -104,5 +104,12 @@ public class dbBasics {
         System.out.println("Update successful");
     }
     
+    public static void dbUpdateOwned(int id, int owned) throws SQLException{ 
+        String query = "UPDATE modules SET owned = " + owned + " WHERE id = " + id + ";";
+        stmt.executeUpdate(query);
+        c.commit();
+        System.out.println("Update");
+    }
+    
     
 }
