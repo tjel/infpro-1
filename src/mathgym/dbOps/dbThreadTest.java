@@ -13,9 +13,17 @@ import java.sql.SQLException;
  */
 public class dbThreadTest {
     
+    /**
+     *
+     * @param args
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
         new dbBasics().start();
         dbBasics.dbSelect("SELECT * FROM modules");
+        dbBasics.dbInsert(1,"Dodawanie");
         
+        dbBasics.dbSelect("SELECT * FROM modules");
     }
 }
