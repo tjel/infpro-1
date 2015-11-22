@@ -12,7 +12,8 @@ import java.util.logging.Logger;
  *  
  * @author zajec_000
  */
-public class dbBasics extends Thread {
+public class dbBasics {
+//public class dbBasics extends Thread {
     private static Connection c;
     private static Statement stmt;
 
@@ -30,10 +31,13 @@ public class dbBasics extends Thread {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /*
+    * pusto bo w sumie to ma tylko trzymac po³¹czenie z konstruktora
     
-    public void run(){
+    */
+    //public void run(){
         
-    }
+    //}
     
     /**
      *
