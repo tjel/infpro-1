@@ -20,7 +20,8 @@ public class dbThreadTest {
      * @throws SQLException
      */
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
-        new dbBasics().start();
+        dbBasics dbConnection = new dbBasics();
+        //new dbBasics().start();
         //dbBasics.dbSelect("SELECT * FROM modules");
         //dbBasics.dbInsertMinimal(1,"Dodawanie");
         
