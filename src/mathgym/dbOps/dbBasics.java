@@ -104,11 +104,16 @@ public class dbBasics {
         System.out.println("Update successful");
     }
     
-    public static void dbUpdateOwned(int id, int owned) throws SQLException{ 
-        String query = "UPDATE modules SET owned = " + owned + " WHERE id = " + id + ";";
-        stmt.executeUpdate(query);
-        c.commit();
-        System.out.println("Update");
+    public static void dbUpdateOwned(int id, int owned) { 
+        try {
+            String query = "UPDATE modules SET owned = " + owned + " WHERE id = " + id + ";";
+            stmt.executeUpdate(query);
+            c.commit();
+            System.out.println("Update 'OWNED' value successful.");
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Update 'OWNED' value unsuccessful.");
+        }
     }
     
     
