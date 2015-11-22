@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mathgym2;
+package mathgym;
 
 import java.util.*;
-import static mathgym2.X_Sklep.getInstance;
-import mathgym2.*;
-import mathgym2.modules.Dodawanie;
+import static mathgym.X_Sklep.getInstance;
+import mathgym.modules.Dodawanie;
 
 /**
  *

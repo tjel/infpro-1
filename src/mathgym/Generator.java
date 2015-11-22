@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package mathgym2;
+package mathgym;
 
-import mathgym2.modules.Odejmowanie;
-import mathgym2.modules.Dodawanie;
+import mathgym.modules.Odejmowanie;
+import mathgym.modules.Dodawanie;
 import java.util.*;
 
 /**

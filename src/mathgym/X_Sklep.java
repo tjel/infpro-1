@@ -1,13 +1,15 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mathgym2;
+package mathgym;
 
+import mathgym.modules.Dodawanie;
+import mathgym.modules.Odejmowanie;
 import java.util.ArrayList;
 import java.util.List;
-import mathgym2.modules.*;
 
 /**
  * aaaa
@@ -106,17 +108,17 @@ public class X_Sklep {
         if (name.equals("Dodawanie")) {
             if (Player.getPoints() >= Dodawanie.getLvlUpCost()) {
                 Player.setPoints(Player.getPoints() - Dodawanie.getLvlUpCost());
-                Dodawanie.lvlUp();
+                //Dodawanie.lvlUp();
             }
         }
         if (name.equals("Odejmowanie")) {
             if (Player.getPoints() >= Odejmowanie.getLvlUpCost()) {
                 Player.setPoints((Player.getPoints() - Odejmowanie.getLvlUpCost()));
-                Odejmowanie.lvlUp();
+                //Odejmowanie.lvlUp();
             }
         }
         if (name.equals("DodawanieWielokrotne")) {
-            DodawanieWielokrotne.lvlUp();
+            //DodawanieWielokrotne.lvlUp();
         }
 
     }
