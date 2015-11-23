@@ -8,17 +8,18 @@ package mathgym.dbOps;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *  
  * @author zajec_000
  */
-public class dbBasics {
-//public class dbBasics extends Thread {
+public class dbBasics { // dla obiektu bez obs³ugi w¹tków
+//public class dbBasics extends Thread { // dla obiektu z obs³ug¹ w¹tków
     private static Connection c;
     private static Statement stmt;
 
     /**
-     * Konstruktor na potrzeby w¹tku
+     * Konstruktor na potrzeby w¹tku/obiektu
      * @throws ClassNotFoundException
      */
     public dbBasics() throws ClassNotFoundException{
@@ -32,7 +33,7 @@ public class dbBasics {
         }
     }
     /*
-    * pusto bo w sumie to ma tylko trzymac po³¹czenie z konstruktora
+    * pusto, bo w sumie to ma tylko trzymac po³¹czenie z konstruktora
     
     */
     //public void run(){
@@ -40,7 +41,8 @@ public class dbBasics {
     //}
     
     /**
-     *
+     * Metoda wykonuj¹ca zapytanie SQL tylko do wyœwietlania danych.
+     * Wprowadzenie komendy typu INSERT albo UPDATE nie bêdzie funkcjonowaæ
      * @param query wejœciowe dowolne zapytanie u¿ytkownika
      * @throws SQLException
      */
@@ -73,6 +75,12 @@ public class dbBasics {
         System.out.println("Operation successful");
     }
     
+    /**
+     * Metoda zwracaj¹ca cene modu³u
+     * @param id
+     * @return Cena modu³u
+     * @throws SQLException 
+     */
     public static int dbSelectCost(int id) throws SQLException{
         String query = "SELECT cost FROM modules WHERE id ="+ id + ";";
         ResultSet rs = stmt.executeQuery(query);
