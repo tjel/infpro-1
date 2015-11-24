@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 public class dbCreate {
 
     /**
-     *  metoda tworz¹ca baze danych w razie wu. :)
-     *  w przypadku zepsucia bazy aby wygenerowaæ now¹ wystarczy wywo³aæ funkcje, najpierw trzeba usun¹æ star¹ baze
+     *  metoda tworzÄ…ca baze danych w razie wu. :)
+     *  w przypadku zepsucia bazy aby wygenerowaÄ‡ nowÄ… wystarczy wywoÅ‚aÄ‡ funkcje, najpierw trzeba usunÄ…Ä‡ starÄ… baze
      */
     public static void Create_DB(){
         Connection c;

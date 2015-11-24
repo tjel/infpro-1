@@ -20,19 +20,30 @@ public class dbThreadTest {
      * @throws SQLException
      */
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
-        dbBasics dbConnection = new dbBasics();
-        //new dbBasics().start();
+        dbBasics dbConnection = new dbBasics(); //sposób na obiekt
+        //new dbBasics().start(); //sposób na wątki
         //dbBasics.dbSelect("SELECT * FROM modules");
-        //dbBasics.dbInsertMinimal(1,"Dodawanie");
-        
-        //dbBasics.dbSelect("SELECT * FROM modules");
-        //dbBasics.dbInsertMinimal(2, "Odejmowanie");
-        //dbBasics.dbSelect("SELECT * FROM modules");
-        
         //System.out.println(dbBasics.dbSelectCost(2));
         
         //dbBasics.dbUpdadeCost(2, 600);
+        //dbBasics.dbSelect("SELECT * FROM modules");
+        //System.out.println(dbBasics.dbSelectCost(2));
+        
+        //dbCreate.Create_DB();
+        //dbBasics.dbUpdateOwned(2,0);
+        
+        //System.out.println(dbBasics.dbGetSuccessful(2));
+        //dbBasics.dbEarnedSuccessful(2);
+        
+        dbBasics.dbInsert(3,"Dodawanie Wielokrotne", 700);
         dbBasics.dbSelect("SELECT * FROM modules");
-        System.out.println(dbBasics.dbSelectCost(2));
+        
+        //System.out.println(dbBasics.dbGetSuccessful(2));
+        
+        //dbBasics.dbSelect("SELECT * FROM modules");
+        
+        
+        
+        
     }
 }

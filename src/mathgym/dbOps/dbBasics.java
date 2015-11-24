@@ -13,13 +13,13 @@ import java.util.logging.Logger;
  *  
  * @author zajec_000
  */
-public class dbBasics { // dla obiektu bez obs³ugi w¹tków
-//public class dbBasics extends Thread { // dla obiektu z obs³ug¹ w¹tków
+public class dbBasics { // dla obiektu bez obsÅ‚ugi wÄ…tkÃ³w
+//public class dbBasics extends Thread { // dla obiektu z obsÅ‚ugÄ… wÄ…tkÃ³w
     private static Connection c;
     private static Statement stmt;
 
     /**
-     * Konstruktor na potrzeby w¹tku/obiektu
+     * Konstruktor na potrzeby wÄ…tku/obiektu
      * @throws ClassNotFoundException
      */
     public dbBasics() throws ClassNotFoundException{
@@ -32,18 +32,20 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*
-    * pusto, bo w sumie to ma tylko trzymac po³¹czenie z konstruktora
     
+    
+    /*
+    * pusto, bo w sumie to ma tylko trzymac poÅ‚Ä…czenie z konstruktora
+    *
     */
     //public void run(){
         
     //}
     
     /**
-     * Metoda wykonuj¹ca zapytanie SQL tylko do wyœwietlania danych.
-     * Wprowadzenie komendy typu INSERT albo UPDATE nie bêdzie funkcjonowaæ
-     * @param query wejœciowe dowolne zapytanie u¿ytkownika
+     * Metoda wykonujÄ…ca zapytanie SQL tylko do wyï¿½wietlania danych.
+     * Wprowadzenie komendy typu INSERT albo UPDATE nie bÄ™dzie funkcjonowaÄ‡
+     * @param query wejÅ›ciowe dowolne zapytanie uÅ¼ytkownika
      * @throws SQLException
      */
     public static void dbSelect(String query) throws SQLException{
@@ -76,9 +78,9 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda zwracaj¹ca cene modu³u
+     * Metoda zwracajÄ…ca cene moduÅ‚u
      * @param id
-     * @return Cena modu³u
+     * @return Cena moduÅ‚u
      * @throws SQLException 
      */
     public static int dbSelectCost(int id) throws SQLException{
@@ -93,9 +95,9 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda dodaj¹ca do bazy modu³ów wpis o minimalnych wymaganiach, tzn. id i nazwe modu³u
-     * @param id wejœciowy parametr dla operacji wstawiania do bazy danych. Klucz g³ówny.
-     * @param name wejœciowy parametr dla operacji wstawiania do bazy danych. Nazwa osi¹gniêcia
+     * Metoda dodajÄ…ca do bazy moduÅ‚Ã³w wpis o minimalnych wymaganiach, tzn. id i nazwe moduÅ‚u
+     * @param id wejÅ›ciowy parametr dla operacji wstawiania do bazy danych. Klucz gÅ‚Ã³wny.
+     * @param name wejÅ›ciowy parametr dla operacji wstawiania do bazy danych. Nazwa osiÄ…gniÄ™cia
      * @throws SQLException
      */
     public static void dbInsert(int id,String name) throws SQLException{
@@ -106,15 +108,15 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda dodaj¹ca do bazy modu³ów kompletny wpis
+     * Metoda dodajÄ…ca do bazy moduÅ‚Ã³w kompletny wpis
      * @param id
      * @param name
      * @param curr_lvl
      * @param cost
      * @param points
-     * @param available Wartoœc bool -> 1/0
-     * @param active Wartoœc bool -> 1/0
-     * @param owned Wartoœc bool -> 1/0
+     * @param available Wartoï¿½c bool -> 1/0
+     * @param active Wartoï¿½c bool -> 1/0
+     * @param owned Wartoï¿½c bool -> 1/0
      * @param successful
      * @param unsuccessful
      * @throws SQLException 
@@ -136,7 +138,7 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda dodaj¹ca do bazy danych tylko znacz¹ce pola przy tworzeniu modu³u
+     * Metoda dodajÄ…ca do bazy danych tylko znaczÄ…ce pola przy tworzeniu moduÅ‚u
      * @param id
      * @param name
      * @param cost
@@ -153,7 +155,7 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda aktualizuj¹ca cene modu³u
+     * Metoda aktualizujÄ…ca cene moduÅ‚u
      * @param id
      * @param cost
      * @throws SQLException 
@@ -166,7 +168,7 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda aktualizuj¹ca status posiadania modu³u
+     * Metoda aktualizujÄ…ca status posiadania moduÅ‚u
      * @param id
      * @param owned 
      */
@@ -183,9 +185,9 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda zdobywaj¹ca iloœæ poprawnie rozwi¹zanych zadañ
+     * Metoda zdobywajï¿½ca iloÅ›Ä‡ poprawnie rozwiÄ…zanych zadaÅ„
      * @param id
-     * @return Zwraca wartoœæ kolumny successful dla konkretnego id 
+     * @return Zwraca wartoÅ›Ä‡ kolumny successful dla konkretnego id 
      */
     public static int dbGetSuccessful(int id){
         int successful = 0;
@@ -206,7 +208,7 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda ustalaj¹ca iloœæ poprawnie rozwi¹zanych zadañ //private
+     * Metoda ustalajÄ…ca iloÅ›Ä‡ poprawnie rozwiÄ…zanych zadaÅ„ //private
      * @param id
      * @param successful 
      */
@@ -223,7 +225,7 @@ public class dbBasics { // dla obiektu bez obs³ugi w¹tków
     }
     
     /**
-     * Metoda zwiêkszaj¹ca wartoœæ w tabeli successful o 1
+     * Metoda zwiÄ™kszajÄ…ca wartoÅ›Ä‡ w tabeli successful o 1
      * @param id 
      */
     public static void dbEarnedSuccessful(int id){
