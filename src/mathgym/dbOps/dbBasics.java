@@ -43,7 +43,7 @@ public class dbBasics { // dla obiektu bez obsługi wątków
     //}
     
     /**
-     * Metoda wykonująca zapytanie SQL tylko do wy�wietlania danych.
+     * Metoda wykonująca zapytanie SQL tylko do wyświetlania danych.
      * Wprowadzenie komendy typu INSERT albo UPDATE nie będzie funkcjonować
      * @param query wejściowe dowolne zapytanie użytkownika
      * @throws SQLException
@@ -114,9 +114,9 @@ public class dbBasics { // dla obiektu bez obsługi wątków
      * @param curr_lvl
      * @param cost
      * @param points
-     * @param available Warto�c bool -> 1/0
-     * @param active Warto�c bool -> 1/0
-     * @param owned Warto�c bool -> 1/0
+     * @param available Wartość bool -> 1/0
+     * @param active Wartość bool -> 1/0
+     * @param owned Wartość bool -> 1/0
      * @param successful
      * @param unsuccessful
      * @throws SQLException 
@@ -185,7 +185,7 @@ public class dbBasics { // dla obiektu bez obsługi wątków
     }
     
     /**
-     * Metoda zdobywaj�ca ilość poprawnie rozwiązanych zadań
+     * Metoda zdobywająca ilość poprawnie rozwiązanych zadań
      * @param id
      * @return Zwraca wartość kolumny successful dla konkretnego id 
      */
