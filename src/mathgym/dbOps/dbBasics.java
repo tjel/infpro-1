@@ -13,8 +13,8 @@ import java.util.logging.Logger;
  *  
  * @author zajec_000
  */
-public class dbBasics { // dla obiektu bez obsługi wątków
-//public class dbBasics extends Thread { // dla obiektu z obsługą wątków
+//public class dbBasics { // dla obiektu bez obsługi wątków
+public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     private static Connection c;
     private static Statement stmt;
 
@@ -38,12 +38,15 @@ public class dbBasics { // dla obiektu bez obsługi wątków
     * pusto, bo w sumie to ma tylko trzymac połączenie z konstruktora
     *
     */
-    //public void run(){
+    public void run(){
         
-    //}
+    }
     
     /**
      * Metoda wykonująca zapytanie SQL tylko do wyświetlania danych.
+     * Ta metoda ma na celu tylko wyświetlić dane z CAŁEJ tabeli. Do wyświetlania pojedyńczych kolumn
+     * użyj innej metody.
+     *
      * Wprowadzenie komendy typu INSERT albo UPDATE nie będzie funkcjonować
      * @param query wejściowe dowolne zapytanie użytkownika
      * @throws SQLException
