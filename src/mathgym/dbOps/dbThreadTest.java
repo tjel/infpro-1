@@ -50,6 +50,7 @@ public class dbThreadTest {
     
     /**
      * Metoda testująca szybkość wykonania zapytania.
+     * 
      * @param d ilość zapytań
      * @throws SQLException 
      */
