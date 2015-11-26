@@ -238,4 +238,55 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
     
     
+    
+    /**
+     * Metoda zdobywająca ilość błednie rozwiązanych zadań
+     * @param id
+     * @return Zwraca wartość kolumny unsuccessful dla konkretnego id 
+     */
+    public static int dbGetUnsuccessful(int id){
+        int unsuccessful = 0;
+        try {
+            String query = "SELECT unsuccessful FROM modules WHERE id ="+ id + ";";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()){
+                unsuccessful = rs.getInt("unsuccessful");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error while getting Unuccessfull.");
+        }
+        return unsuccessful;
+        
+    }
+    
+    /**
+     * Metoda ustalająca ilość błednie rozwiązanych zadań //private
+     * @param id
+     * @param unsuccessful 
+     */
+    private static void dbUpdateUnsuccessful(int id, int unsuccessful) { 
+        try {
+            String query = "UPDATE modules SET unsuccessful = " + unsuccessful + " WHERE id = " + id + ";";
+            stmt.executeUpdate(query);
+            c.commit();
+            System.out.println("Update 'UNSUCCESSFUL' value successful.");
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Update 'UNSUCCESSFUL' value unsuccessful.");
+        }
+    }
+    
+    /**
+     * Metoda zwiększająca wartość w tabeli unsuccessful o 1
+     * @param id 
+     */
+    public static void dbEarnedUnsuccessful(int id){
+        int unsuccessful = dbGetUnsuccessful(id);
+        unsuccessful++;
+        dbUpdateSuccessful(id,unsuccessful);
+    }
+    
 }
