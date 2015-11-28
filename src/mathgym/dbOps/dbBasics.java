@@ -34,7 +34,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
     
     
-    /*
+    /**
     * pusto, bo w sumie to ma tylko trzymac połączenie z konstruktora
     *
     */
