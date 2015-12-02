@@ -37,11 +37,8 @@ public class dbCreate {
                     "successful INTEGER DEFAULT 0," +
                     "unsuccessful INTEGER DEFAULT 0," +
                     "PRIMARY KEY (id))";
-            
             stmt.executeUpdate(query);
             stmt.close();
-            
-            
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(dbCreate.class.getName()).log(Level.SEVERE, null, ex);
         }
