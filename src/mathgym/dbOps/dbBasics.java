@@ -204,15 +204,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param successful 
      */
     private static void dbUpdateSuccessful(int id, int successful) { 
-        try {
-            String query = "UPDATE modules SET successful = " + successful + " WHERE id = " + id + ";";
-            stmt.executeUpdate(query);
-            c.commit();
-            System.out.println("Update 'SUCCESSFUL' value successful.");
-        } catch (SQLException ex) {
-            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Update 'SUCCESSFUL' value unsuccessful.");
-        }
+            dbUpdateValue(id,"successful", successful);
     }
     
     /**
@@ -242,9 +234,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id
      * @param unsuccessful 
      */
-    private static void dbUpdateUnsuccessful(int id, int unsuccessful) { 
-        String what = "unsuccessful";
-        dbUpdateValue(id,what,unsuccessful);
+    private static void dbUpdateUnsuccessful(int id, int unsuccessful) {
+        dbUpdateValue(id, "unsuccessful", unsuccessful);
     }
     
     /**
