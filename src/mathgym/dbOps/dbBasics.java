@@ -251,7 +251,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
     
     /**
-     * Metoda ustalająca ilość błednie rozwiązanych zadań //private
+     * Metoda ustawiająca ilość błednie rozwiązanych zadań //private
      * @param id
      * @param unsuccessful 
      */
@@ -292,7 +292,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
             while(rs.next()){   value = rs.getInt(what);   }
         }catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error while getting value.");
+            System.out.println("Error while getting value " + what + ".");
         }
         return value;
     }
