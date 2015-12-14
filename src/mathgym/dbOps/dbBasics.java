@@ -154,8 +154,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id
      * @param cost
      */
-    public static void dbUpdadeCost(int id,int cost){
-        dbUpdateValue(id, "cost", cost);
+    public static void dbSetCost(int id,int cost){
+        dbSetValue(id, "cost", cost);
     }
     
     /**
@@ -163,8 +163,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id
      * @param owned 
      */
-    public static void dbUpdateOwned(int id, int owned) { 
-        dbUpdateValue(id, "owned", owned);
+    public static void dbSetOwned(int id, int owned) { 
+        dbSetValue(id, "owned", owned);
     }
     
     /**
@@ -181,8 +181,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id
      * @param successful 
      */
-    private static void dbUpdateSuccessful(int id, int successful) { 
-            dbUpdateValue(id,"successful", successful);
+    private static void dbSetSuccessful(int id, int successful) { 
+            dbSetValue(id,"successful", successful);
     }
     
     /**
@@ -192,7 +192,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static void dbEarnedSuccessful(int id){
         int successful = dbGetSuccessful(id);
         successful++;
-        dbUpdateSuccessful(id,successful);
+        dbSetSuccessful(id,successful);
     }
     
     
@@ -211,8 +211,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id
      * @param unsuccessful 
      */
-    private static void dbUpdateUnsuccessful(int id, int unsuccessful) {
-        dbUpdateValue(id, "unsuccessful", unsuccessful);
+    private static void dbSetUnsuccessful(int id, int unsuccessful) {
+        dbSetValue(id, "unsuccessful", unsuccessful);
     }
     
     /**
@@ -222,7 +222,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static void dbEarnedUnsuccessful(int id){
         int unsuccessful = dbGetUnsuccessful(id);
         unsuccessful++;
-        dbUpdateUnsuccessful(id,unsuccessful);
+        dbSetUnsuccessful(id,unsuccessful);
     }
     
     
@@ -239,7 +239,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
             while(rs.next()){   value = rs.getInt(what);   }
         }catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error while getting value.");
+            System.out.println("Error while getting value of " + what.toUpperCase() + ".");
         }
         return value;
     }
@@ -250,7 +250,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param what
      * @param value 
      */
-    private static void dbUpdateValue(int id, String what, int value){
+    private static void dbSetValue(int id, String what, int value){
         try {
             String query = "UPDATE modules SET " + what + " = " + value + " WHERE id = " + id + ";";
             stmt.executeUpdate(query);
