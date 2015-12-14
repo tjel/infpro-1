@@ -276,7 +276,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @return  
      */
     public static boolean dbGetOwned(int id){
-        int value = dbBasics.dbGetValue(id, "owned");
+        int value = dbGetValue(id, "owned");
         return value == 1;
     }
     
