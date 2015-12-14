@@ -32,7 +32,7 @@ public class dbThreadTest {
         
         //dbCreate.Create_DB();
         //dbBasics.dbUpdateOwned(2,0);
-        
+        //System.out.println(dbBasics.dbGetValue(2, "cost"));
         //System.out.println(dbBasics.dbGetSuccessful(2));
         //dbBasics.dbEarnedSuccessful(2);
         
