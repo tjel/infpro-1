@@ -25,9 +25,9 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public dbBasics() throws ClassNotFoundException{
        Class.forName("org.sqlite.JDBC");
         try {
-            this.c = DriverManager.getConnection("jdbc:sqlite:modules.db");
-            this.c.setAutoCommit(false);
-            this.stmt = c.createStatement();
+            dbBasics.c = DriverManager.getConnection("jdbc:sqlite:modules.db");
+            dbBasics.c.setAutoCommit(false);
+            dbBasics.stmt = c.createStatement();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
