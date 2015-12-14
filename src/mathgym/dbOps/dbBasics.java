@@ -287,7 +287,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id Typu int określa moduł
      * @param what Typu String określa kolumne
      */
-    public static int dbGetValue(int id, String what) throws SQLException{
+    private static int dbGetValue(int id, String what) throws SQLException{
         String query = "SELECT " + what + " FROM modules WHERE id ="+ id + ";";
         int value = 0;
         try {
