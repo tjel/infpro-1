@@ -247,13 +247,9 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static int dbGetUnsuccessful(int id){
         int unsuccessful = 0;
         try {
-            String query = "SELECT unsuccessful FROM modules WHERE id ="+ id + ";";
-            ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){   unsuccessful = rs.getInt("unsuccessful");   }
-            rs.close();
+            unsuccessful = dbGetValue(id, "unsuccessful");
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error while getting Unuccessfull.");
         }
         return unsuccessful;
     }
