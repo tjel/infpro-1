@@ -274,10 +274,19 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * Metoda zwracająca prawda fałsz w zależności od zawartości kolumny owned dla konkretnego id
      * @param id 
      * @return  
-     * @throws java.sql.SQLException  
      */
-    public static boolean dbGetOwned(int id) throws SQLException {
+    public static boolean dbGetOwned(int id){
         int value = dbBasics.dbGetValue(id, "owned");
+        return value == 1;
+    }
+    
+    /**
+     * Metoda zwracająca prawda fałsz w zależności od zawarości kolumny available dla konkretnego id
+     * @param id
+     * @return 
+     */
+    public static boolean dbGetAvailable(int id){
+        int value = dbGetValue(id, "available");
         return value == 1;
     }
     
