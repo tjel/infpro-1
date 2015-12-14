@@ -161,13 +161,9 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * Metoda aktualizująca cene modułu
      * @param id
      * @param cost
-     * @throws SQLException 
      */
-    public static void dbUpdadeCost(int id,int cost) throws SQLException{
-        String query = "UPDATE modules SET cost = "+ cost +" WHERE id = "+ id + ";";
-        stmt.executeUpdate(query);
-        c.commit();
-        System.out.println("Update successful");
+    public static void dbUpdadeCost(int id,int cost){
+        dbUpdateValue(id, "cost", cost);
     }
     
     /**
@@ -176,15 +172,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param owned 
      */
     public static void dbUpdateOwned(int id, int owned) { 
-        try {
-            String query = "UPDATE modules SET owned = " + owned + " WHERE id = " + id + ";";
-            stmt.executeUpdate(query);
-            c.commit();
-            System.out.println("Update 'OWNED' value successful.");
-        } catch (SQLException ex) {
-            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Update 'OWNED' value unsuccessful.");
-        }
+        dbUpdateValue(id, "owned", owned);
     }
     
     /**
@@ -193,9 +181,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @return Zwraca wartość kolumny successful dla konkretnego id 
      */
     public static int dbGetSuccessful(int id){
-        int successful = dbGetValue(id, "successful");
-        return successful;
-        
+        return dbGetValue(id, "successful");
     }
     
     /**
@@ -225,8 +211,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @return Zwraca wartość kolumny unsuccessful dla konkretnego id 
      */
     public static int dbGetUnsuccessful(int id){
-        int unsuccessful = dbGetValue(id, "unsuccessful");
-        return unsuccessful;
+        return dbGetValue(id, "unsuccessful");
     }
     
     /**
@@ -259,7 +244,6 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         int value = 0;
         try {
             ResultSet rs = stmt.executeQuery(query);
-            value = 0;
             while(rs.next()){   value = rs.getInt(what);   }
         }catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
