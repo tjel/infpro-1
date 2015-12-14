@@ -285,6 +285,12 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         dbUpdateSuccessful(id,unsuccessful);
     }
     
+    
+    /**
+     * Metoda uniwersalana zwracająca wartość typu int wybranej kolumny dla konkretnego id
+     * @param id Typu int określa moduł
+     * @param what Typu String określa kolumne
+     */
     public static int dbGetValue(int id, String what) throws SQLException{
         String query = "SELECT " + what + " FROM modules WHERE id ="+ id + ";";
         int value = 0;
@@ -299,9 +305,13 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         return value;
     }
     
-    //public static boolean dbGetOvned(int id) {
-        
-        
-    //}
+    /**
+     * Metoda zwracająca prawda fałsz w zależności od zawartości kolumny owned dla konkretnego id
+     * @param id 
+     */
+    public static boolean dbGetOwned(int id) throws SQLException {
+     int value = dbBasics.dbGetValue(id, "owned");
+        return value == 1;
+    }
     
 }
