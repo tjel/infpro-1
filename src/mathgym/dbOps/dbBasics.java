@@ -84,17 +84,9 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * Metoda zwracająca cene modułu
      * @param id
      * @return Cena modułu
-     * @throws SQLException 
      */
-    public static int dbSelectCost(int id) throws SQLException{
-        String query = "SELECT cost FROM modules WHERE id ="+ id + ";";
-        ResultSet rs = stmt.executeQuery(query);
-        int cost = 0;
-        while(rs.next()){
-        cost = rs.getInt("cost");
-        }
-        rs.close();
-        return cost;
+    public static int dbGetCost(int id){
+        return dbGetValue(id,"cost");
     }
     
     /**
