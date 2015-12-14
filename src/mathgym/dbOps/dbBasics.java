@@ -193,13 +193,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @return Zwraca wartość kolumny successful dla konkretnego id 
      */
     public static int dbGetSuccessful(int id){
-        int successful = 0;
-        try {
-            successful = dbGetValue(id, "successful");
-        } catch (SQLException ex) {
-            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error while getting Successfull.");
-        }
+        int successful = dbGetValue(id, "successful");
         return successful;
         
     }
@@ -239,12 +233,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @return Zwraca wartość kolumny unsuccessful dla konkretnego id 
      */
     public static int dbGetUnsuccessful(int id){
-        int unsuccessful = 0;
-        try {
-            unsuccessful = dbGetValue(id, "unsuccessful");
-        } catch (SQLException ex) {
-            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        int unsuccessful = dbGetValue(id, "unsuccessful");
         return unsuccessful;
     }
     
@@ -274,7 +263,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param id Typu int określa moduł
      * @param what Typu String określa kolumne
      */
-    private static int dbGetValue(int id, String what) throws SQLException{
+    private static int dbGetValue(int id, String what) {
         String query = "SELECT " + what + " FROM modules WHERE id ="+ id + ";";
         int value = 0;
         try {
@@ -309,6 +298,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     /**
      * Metoda zwracająca prawda fałsz w zależności od zawartości kolumny owned dla konkretnego id
      * @param id 
+     * @return  
+     * @throws java.sql.SQLException  
      */
     public static boolean dbGetOwned(int id) throws SQLException {
         int value = dbBasics.dbGetValue(id, "owned");
