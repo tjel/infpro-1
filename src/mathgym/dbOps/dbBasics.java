@@ -195,13 +195,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static int dbGetSuccessful(int id){
         int successful = 0;
         try {
-            String query = "SELECT successful FROM modules WHERE id ="+ id + ";";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while(rs.next()){
-                successful = rs.getInt("successful");
-            }
-            rs.close();
+            successful = dbGetValue(id, "successful");
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error while getting Successfull.");
@@ -260,15 +254,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * @param unsuccessful 
      */
     private static void dbUpdateUnsuccessful(int id, int unsuccessful) { 
-        try {
-            String query = "UPDATE modules SET unsuccessful = " + unsuccessful + " WHERE id = " + id + ";";
-            stmt.executeUpdate(query);
-            c.commit();
-            System.out.println("Update 'UNSUCCESSFUL' value successful.");
-        } catch (SQLException ex) {
-            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Update 'UNSUCCESSFUL' value unsuccessful.");
-        }
+        String what = "unsuccessful";
+        dbUpdateValue(id,what,unsuccessful);
     }
     
     /**
@@ -278,7 +265,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static void dbEarnedUnsuccessful(int id){
         int unsuccessful = dbGetUnsuccessful(id);
         unsuccessful++;
-        dbUpdateSuccessful(id,unsuccessful);
+        dbUpdateUnsuccessful(id,unsuccessful);
     }
     
     
@@ -302,11 +289,29 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
     
     /**
+     * Uniwersalna metoda wstawiania wartości do bazy
+     * @param id
+     * @param what
+     * @param value 
+     */
+    private static void dbUpdateValue(int id, String what, int value){
+        try {
+            String query = "UPDATE modules SET " + what + " = " + value + " WHERE id = " + id + ";";
+            stmt.executeUpdate(query);
+            c.commit();
+            System.out.println("Update " + what.toUpperCase() + " value was successful.");
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Update " + what.toUpperCase() + " value was unsuccessful.");
+        }
+    }
+    
+    /**
      * Metoda zwracająca prawda fałsz w zależności od zawartości kolumny owned dla konkretnego id
      * @param id 
      */
     public static boolean dbGetOwned(int id) throws SQLException {
-     int value = dbBasics.dbGetValue(id, "owned");
+        int value = dbBasics.dbGetValue(id, "owned");
         return value == 1;
     }
     
