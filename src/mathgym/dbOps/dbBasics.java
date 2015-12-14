@@ -285,4 +285,23 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         dbUpdateSuccessful(id,unsuccessful);
     }
     
+    public static int dbGetValue(int id, String what) throws SQLException{
+        String query = "SELECT " + what + " FROM modules WHERE id ="+ id + ";";
+        int value = 0;
+        try {
+            ResultSet rs = stmt.executeQuery(query);
+            value = 0;
+            while(rs.next()){   value = rs.getInt(what);   }
+        }catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error while getting value.");
+        }
+        return value;
+    }
+    
+    //public static boolean dbGetOvned(int id) {
+        
+        
+    //}
+    
 }
