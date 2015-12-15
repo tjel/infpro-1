@@ -56,13 +56,13 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
             String query = "UPDATE modules SET " + what + " = " + value + " WHERE id = " + id + ";";
             stmt.executeUpdate(query);
             c.commit();
-            System.out.println("Update " + what.toUpperCase() + " value was successful.");
+            //System.out.println("Update " + what.toUpperCase() + " value was successful.");
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Update " + what.toUpperCase() + " value was unsuccessful.");
         }
     }
-    
+
     /**
      * Uniwersalana metoda zwracająca wartość typu int wybranej kolumny dla
      * konkretnego id
@@ -84,7 +84,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         }
         return value;
     }
-    
+
     /**
      * Metoda wykonująca zapytanie SQL tylko do wyświetlania danych. Ta metoda
      * ma na celu tylko wyświetlić dane z CAŁEJ tabeli. Do wyświetlania
@@ -277,7 +277,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      *
      * @param id
      */
-    public static void dbEarnedUnsuccessful(int id){
+    public static void dbEarnedUnsuccessful(int id) {
         int unsuccessful = dbGetUnsuccessful(id);
         unsuccessful++;
         dbSetUnsuccessful(id, unsuccessful);
@@ -306,60 +306,65 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         int value = dbGetValue(id, "available");
         return value == 1;
     }
-    
+
     /**
      * Metoda zwracająca prawda fałsz z kolumny active dla konkretnego id
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public static boolean dbGetActive(int id){
-        return dbGetValue(id,"active") == 1;
+    public static boolean dbGetActive(int id) {
+        return dbGetValue(id, "active") == 1;
     }
-    
+
     /**
      * Metoda wstawiająca podaną wartość do kolumny active podanego id
+     *
      * @param id
-     * @param value 
+     * @param value
      */
-    public static void dbSetActive(int id, int value){
-        dbSetValue(id,"active",value);
+    public static void dbSetActive(int id, int value) {
+        dbSetValue(id, "active", value);
     }
 
     /**
      * Metoda zwracająca wartość kolumny CURR_LVL dla określonego ID
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public static int dbGetCurr_lvl(int id){
-        return dbGetValue(id,"curr_lvl");
+    public static int dbGetCurr_lvl(int id) {
+        return dbGetValue(id, "curr_lvl");
     }
-    
+
     /**
      * Metoda wstawiająca podaną wartość do kolumny CURR_LVL dla określonego ID
+     *
      * @param id
-     * @param value 
+     * @param value
      */
-    public static void dbSetCurr_lvl(int id, int value){
-        dbSetValue(id,"curr_lvl", value);
+    public static void dbSetCurr_lvl(int id, int value) {
+        dbSetValue(id, "curr_lvl", value);
     }
-    
+
     /**
      * Medota zwracająca wartość kolumny POINTS dla określonego ID
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public static int dbGetPoints(int id){
-        return dbGetValue(id,"points");
+    public static int dbGetPoints(int id) {
+        return dbGetValue(id, "points");
     }
-    
+
     /**
      * Metoda wstawiająca podaną wartość do kolumny POINTS dla określonego ID
+     *
      * @param id
-     * @param value 
+     * @param value
      */
-    public static void dbSetPoints(int id, int value){
+    public static void dbSetPoints(int id, int value) {
         dbSetValue(id, "points", value);
     }
-    
-    
+
 }
