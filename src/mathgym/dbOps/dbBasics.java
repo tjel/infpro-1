@@ -282,9 +282,6 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         dbSetUnsuccessful(id, unsuccessful);
     }
 
-    
-
-
     /**
      * Metoda zwracająca prawda fałsz w zależności od zawartości kolumny owned
      * dla konkretnego id
@@ -307,6 +304,24 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static boolean dbGetAvailable(int id) {
         int value = dbGetValue(id, "available");
         return value == 1;
+    }
+    
+    /**
+     * Metoda zwracająca prawda fałsz z kolumny active dla konkretnego id
+     * @param id
+     * @return 
+     */
+    public static boolean dbGetActive(int id){
+        return dbGetValue(id,"active") == 1;
+    }
+    
+    /**
+     * Metoda wstawiająca podaną wartość do kolumny active podanego id
+     * @param id
+     * @param value 
+     */
+    public static void dbSetActive(int id, int value){
+        dbSetValue(id,"active",value);
     }
 
 }
