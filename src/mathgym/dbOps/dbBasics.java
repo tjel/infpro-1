@@ -39,6 +39,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * pusto, bo w sumie to ma tylko trzymac połączenie z konstruktora
      *
      */
+    @Override
     public void run() {
 
     }
@@ -89,7 +90,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * ma na celu tylko wyświetlić dane z CAŁEJ tabeli. Do wyświetlania
      * pojedyńczych kolumn użyj innej metody.
      *
-     * Wprowadzenie komendy typu INSERT albo UPDATE nie będzie funkcjonować
+     * Wprowadzenie zapytania typu INSERT albo UPDATE nie będzie funkcjonować
      *
      * @param query wejściowe dowolne zapytanie użytkownika
      * @throws SQLException
@@ -276,7 +277,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      *
      * @param id
      */
-    public static void dbEarnedUnsuccessful(int id) throws SQLException {
+    public static void dbEarnedUnsuccessful(int id){
         int unsuccessful = dbGetUnsuccessful(id);
         unsuccessful++;
         dbSetUnsuccessful(id, unsuccessful);
@@ -324,4 +325,41 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         dbSetValue(id,"active",value);
     }
 
+    /**
+     * Metoda zwracająca wartość kolumny CURR_LVL dla określonego ID
+     * @param id
+     * @return 
+     */
+    public static int dbGetCurr_lvl(int id){
+        return dbGetValue(id,"curr_lvl");
+    }
+    
+    /**
+     * Metoda wstawiająca podaną wartość do kolumny CURR_LVL dla określonego ID
+     * @param id
+     * @param value 
+     */
+    public static void dbSetCurr_lvl(int id, int value){
+        dbSetValue(id,"curr_lvl", value);
+    }
+    
+    /**
+     * Medota zwracająca wartość kolumny POINTS dla określonego ID
+     * @param id
+     * @return 
+     */
+    public static int dbGetPoints(int id){
+        return dbGetValue(id,"points");
+    }
+    
+    /**
+     * Metoda wstawiająca podaną wartość do kolumny POINTS dla określonego ID
+     * @param id
+     * @param value 
+     */
+    public static void dbSetPoints(int id, int value){
+        dbSetValue(id, "points", value);
+    }
+    
+    
 }
