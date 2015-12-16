@@ -18,7 +18,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
 
     private static Connection c;
     private static Statement stmt;
-
+    private static int commitCount;
+    private static long commitTime;
     /**
      * Konstruktor na potrzeby wątku/obiektu
      *
@@ -30,8 +31,37 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
             dbBasics.c = DriverManager.getConnection("jdbc:sqlite:modules.db");
             dbBasics.c.setAutoCommit(false);
             dbBasics.stmt = c.createStatement();
+            dbBasics.commitCount = 1;
+            dbBasics.commitTime = System.nanoTime();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static void dbCommit(){
+        try {
+            c.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    private static void dbCommitStack(){
+        //long difference = System.nanoTime() - commitTime;
+        System.out.println(commitCount + " " + commitTime + " " + (System.nanoTime() > commitTime + 300000));
+        if( System.nanoTime() > commitTime + 2000000000){
+            commitCount = 1;
+            dbCommit();
+            commitTime = System.nanoTime();
+        }
+        else if (commitCount < 100) {
+            commitCount++;
+            commitTime = System.nanoTime();
+        }
+        else {
+            commitCount = 1;
+            dbCommit();
         }
     }
 
@@ -55,12 +85,13 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         try {
             String query = "UPDATE modules SET " + what + " = " + value + " WHERE id = " + id + ";";
             stmt.executeUpdate(query);
-            c.commit();
+            
             //System.out.println("Update " + what.toUpperCase() + " value was successful.");
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Update " + what.toUpperCase() + " value was unsuccessful.");
         }
+        dbCommitStack();
     }
 
     /**
@@ -147,7 +178,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static void dbInsert(int id, String name) throws SQLException {
         String query = "INSERT INTO modules (id,name) VALUES (" + id + ", '" + name + "');";
         stmt.executeUpdate(query);
-        c.commit();
+        dbCommitStack();
         System.out.println("Insert successful.");
     }
 
@@ -178,7 +209,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
                 + ", " + successful + ", " + unsuccessful
                 + ");";
         stmt.executeUpdate(query);
-        c.commit();
+        dbCommitStack();
         System.out.println("Insert successful.");
     }
 
@@ -196,7 +227,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
                 + ", " + cost
                 + ");";
         stmt.executeUpdate(query);
-        c.commit();
+        dbCommitStack();
         System.out.println("Insert successful.");
     }
 
