@@ -33,6 +33,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
             dbBasics.stmt = c.createStatement();
             dbBasics.commitCount = 1;
             dbBasics.commitTime = System.nanoTime();
+            new dbSchedule();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,6 +50,10 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static void dbTaskCommit(){
+        dbCommit();
     }
     
     /**
