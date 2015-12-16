@@ -407,4 +407,16 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         dbSetValue(id, "points", value);
     }
 
+    /**
+     * Metoda zapisująca stan bazy i zamykająca połączenie.
+     */
+    public static void dbEndConnection(){
+        try {
+            dbCommit();
+            dbBasics.c.close();
+            dbBasics.stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
