@@ -38,29 +38,33 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         }
     }
     
+    /**
+     * Metoda zatwierdzajca wstawienie do bazy.
+     */
     private static void dbCommit(){
         try {
             c.commit();
+            commitCount = 1;
+            commitTime = System.nanoTime();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    
+    /**
+     * Metoda sprawdzająca ostanie wykonanie wstawiania do bazy, jeżeli jest większe niż 2s albo było wykonanych więcej niż 100 operacji na danych wykonuje wstawianie.
+     */
     private static void dbCommitStack(){
         //long difference = System.nanoTime() - commitTime;
         System.out.println(commitCount + " " + commitTime + " " + (System.nanoTime() > commitTime + 300000));
         if( System.nanoTime() > commitTime + 2000000000){
-            commitCount = 1;
             dbCommit();
-            commitTime = System.nanoTime();
         }
         else if (commitCount < 100) {
             commitCount++;
             commitTime = System.nanoTime();
         }
         else {
-            commitCount = 1;
             dbCommit();
         }
     }
