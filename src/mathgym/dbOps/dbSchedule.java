@@ -20,7 +20,7 @@ public class dbSchedule{
      */
     public dbSchedule(){
         dbSchedule.dbTimer = new Timer();
-        dbTimer.schedule(new dbTaskEvent(), seconds * 1000);
+        dbTimer.scheduleAtFixedRate(new dbTaskEvent(),10, seconds * 1000);
     }
     
     /**
