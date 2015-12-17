@@ -70,7 +70,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
 
     /**
-     *
+     * Metoda stworzona na potrzeby wątku backup'u
+     * do użytku tylko przez klase dbSchedule
      */
     public static void dbTaskCommit() {
         dbCommit();
@@ -432,8 +433,8 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     public static void dbEndConnection() {
         try {
             dbCommit();
-            dbBasics.c.close();
             dbBasics.stmt.close();
+            dbBasics.c.close();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
