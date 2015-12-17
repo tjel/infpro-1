@@ -14,7 +14,7 @@ import mathgym.dbOps.dbBasics;
  * @author student
  */
 public class MathGymGuiMain extends javax.swing.JFrame {
-
+    //MathGymGuiQuestion question;
     /**
      * Creates new form MathGymGuiMain
      */
