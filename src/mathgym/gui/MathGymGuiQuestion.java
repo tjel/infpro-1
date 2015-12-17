@@ -102,6 +102,7 @@ public class MathGymGuiQuestion extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MathGymGuiQuestion().setVisible(true);
+                
             }
         });
     }
