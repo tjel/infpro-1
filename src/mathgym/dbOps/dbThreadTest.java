@@ -41,7 +41,10 @@ public class dbThreadTest {
 
         //dbSelectTimeTest(1000);
         dbGetTimeTest(1000);
-        dbSetTimeTest(1000);
+        dbSetTimeTest(10);
+        
+        Thread.sleep(2001);
+        dbSetTimeTest(10);
 
     }
 
@@ -85,7 +88,8 @@ public class dbThreadTest {
         int sum = 0;
         for (int i = 0; i < d; i++) {
             long startTime = System.nanoTime();
-            dbBasics.dbSetCost(1, 300);
+            dbBasics.dbSetCost(1, 500);
+            //dbBasics.dbSetActive(1, 1);
             long endTime = System.nanoTime();
 
             long duration = (endTime - startTime) / 1000;  //divide by 1000000 to get milliseconds.
