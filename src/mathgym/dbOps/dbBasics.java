@@ -10,16 +10,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author zajec_000
  */
 //public class dbBasics { // dla obiektu bez obsługi wątków
 public class dbBasics extends Thread { // dla obiektu z obsługą wątków
 
+    /**
+     * Element typu Connection odpowiadający za połączenie z bazą danych
+     */
     private static Connection c;
+
+    /**
+     * Element typu Statement odpowiadający za zapytania SQL
+     */
     private static Statement stmt;
-    private static int commitCount;
-    private static long commitTime;
+
+    /**
+     * Zmienna typu int odpowiadająca za zliczanie ilości zapytań na bazie danych. 
+     * Wywoływać przy seriach zapytań!
+     */
+    private static int untilCommitCount;
+
+    /**
+     * Zmienna typu long zapisująca czas ostatniej operacji na bazie danych
+     */
+    private static long lastCommitTime;
+
     /**
      * Konstruktor na potrzeby wątku/obiektu
      *
@@ -31,45 +48,48 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
             dbBasics.c = DriverManager.getConnection("jdbc:sqlite:modules.db");
             dbBasics.c.setAutoCommit(false);
             dbBasics.stmt = c.createStatement();
-            dbBasics.commitCount = 1;
-            dbBasics.commitTime = System.nanoTime();
+            dbBasics.untilCommitCount = 1;
+            dbBasics.lastCommitTime = System.nanoTime();
             new dbSchedule();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Metoda zatwierdzajca wstawienie do bazy.
      */
-    private static void dbCommit(){
+    private static void dbCommit() {
         try {
             c.commit();
-            commitCount = 1;
-            commitTime = System.nanoTime();
+            untilCommitCount = 1;
+            lastCommitTime = System.nanoTime();
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void dbTaskCommit(){
+
+    /**
+     *
+     */
+    public static void dbTaskCommit() {
         dbCommit();
     }
-    
+
     /**
-     * Metoda sprawdzająca ostanie wykonanie wstawiania do bazy, jeżeli jest większe niż 2s albo było wykonanych więcej niż 100 operacji na danych wykonuje wstawianie.
+     * Metoda sprawdzająca ostanie wykonanie wstawiania do bazy, jeżeli jest
+     * większe niż 2s albo było wykonanych więcej niż 100 operacji na danych
+     * wykonuje wstawianie.
      */
-    private static void dbCommitStack(){
-        //long difference = System.nanoTime() - commitTime;
-        System.out.println(commitCount + " " + commitTime + " " + (System.nanoTime() > commitTime + 300000));
-        if( System.nanoTime() > commitTime + 2000000000){
+    private static void dbCommitStack() {
+        //long difference = System.nanoTime() - lastCommitTime;
+        System.out.println(untilCommitCount + " " + lastCommitTime + " " + (System.nanoTime() > lastCommitTime + 300000));
+        if (System.nanoTime() > lastCommitTime + 2000000000) {
             dbCommit();
-        }
-        else if (commitCount < 100) {
-            commitCount++;
-            commitTime = System.nanoTime();
-        }
-        else {
+        } else if (untilCommitCount < 100) {
+            untilCommitCount++;
+            lastCommitTime = System.nanoTime();
+        } else {
             dbCommit();
         }
     }
@@ -94,7 +114,7 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         try {
             String query = "UPDATE modules SET " + what + " = " + value + " WHERE id = " + id + ";";
             stmt.executeUpdate(query);
-            
+
             //System.out.println("Update " + what.toUpperCase() + " value was successful.");
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,16 +182,6 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
 
         rs.close();
         System.out.println("Operation successful");
-    }
-
-    /**
-     * Metoda zwracająca cene modułu
-     *
-     * @param id
-     * @return Cena modułu
-     */
-    public static int dbGetCost(int id) {
-        return dbGetValue(id, "cost");
     }
 
     /**
@@ -261,16 +271,6 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
 
     /**
-     * Metoda zdobywająca ilość poprawnie rozwiązanych zadań
-     *
-     * @param id
-     * @return Zwraca wartość kolumny successful dla konkretnego id
-     */
-    public static int dbGetSuccessful(int id) {
-        return dbGetValue(id, "successful");
-    }
-
-    /**
      * Metoda ustalająca ilość poprawnie rozwiązanych zadań //private
      *
      * @param id
@@ -278,28 +278,6 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      */
     private static void dbSetSuccessful(int id, int successful) {
         dbSetValue(id, "successful", successful);
-    }
-
-    /**
-     * Metoda zwiększająca wartość w tabeli successful o 1
-     *
-     * @param id
-     */
-    public static void dbEarnedSuccessful(int id) {
-        int successful = dbGetSuccessful(id);
-        successful++;
-        dbSetSuccessful(id, successful);
-    }
-
-    /**
-     * Metoda zdobywająca ilość błednie rozwiązanych zadań
-     *
-     * @param id
-     * @return Zwraca wartość kolumny unsuccessful dla konkretnego id
-     * @throws java.sql.SQLException
-     */
-    public static int dbGetUnsuccessful(int id) {
-        return dbGetValue(id, "unsuccessful");
     }
 
     /**
@@ -313,14 +291,73 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
     }
 
     /**
-     * Metoda zwiększająca wartość w tabeli unsuccessful o 1
+     * Metoda wstawiająca podaną wartość do kolumny active podanego id
      *
      * @param id
+     * @param value
      */
-    public static void dbEarnedUnsuccessful(int id) {
-        int unsuccessful = dbGetUnsuccessful(id);
-        unsuccessful++;
-        dbSetUnsuccessful(id, unsuccessful);
+    public static void dbSetActive(int id, int value) {
+        dbSetValue(id, "active", value);
+    }
+
+    /**
+     * Metoda wstawiająca podaną wartość do kolumny CURR_LVL dla określonego ID
+     *
+     * @param id
+     * @param value
+     */
+    public static void dbSetCurr_lvl(int id, int value) {
+        dbSetValue(id, "curr_lvl", value);
+    }
+
+    /**
+     * Metoda wstawiająca podaną wartość do kolumny POINTS dla określonego ID
+     *
+     * @param id
+     * @param value
+     */
+    public static void dbSetPoints(int id, int value) {
+        dbSetValue(id, "points", value);
+    }
+    
+    /**
+     * Metoda zwracająca wartość kolumny CURR_LVL dla określonego ID
+     *
+     * @param id
+     * @return
+     */
+    public static int dbGetCurr_lvl(int id) {
+        return dbGetValue(id, "curr_lvl");
+    }
+
+    /**
+     * Medota zwracająca wartość kolumny POINTS dla określonego ID
+     *
+     * @param id
+     * @return
+     */
+    public static int dbGetPoints(int id) {
+        return dbGetValue(id, "points");
+    }
+
+     /**
+     * Metoda zwracająca cene modułu
+     *
+     * @param id
+     * @return Cena modułu
+     */
+    public static int dbGetCost(int id) {
+        return dbGetValue(id, "cost");
+    }
+
+    /**
+     * Metoda zwracająca prawda fałsz z kolumny active dla konkretnego id
+     *
+     * @param id
+     * @return
+     */
+    public static boolean dbGetActive(int id) {
+        return dbGetValue(id, "active") == 1;
     }
 
     /**
@@ -346,71 +383,53 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         int value = dbGetValue(id, "available");
         return value == 1;
     }
-
+    
     /**
-     * Metoda zwracająca prawda fałsz z kolumny active dla konkretnego id
+     * Metoda zdobywająca ilość poprawnie rozwiązanych zadań
      *
      * @param id
-     * @return
+     * @return Zwraca wartość kolumny successful dla konkretnego id
      */
-    public static boolean dbGetActive(int id) {
-        return dbGetValue(id, "active") == 1;
+    public static int dbGetSuccessful(int id) {
+        return dbGetValue(id, "successful");
+    }
+    
+    /**
+     * Metoda zdobywająca ilość błednie rozwiązanych zadań
+     *
+     * @param id
+     * @return Zwraca wartość kolumny unsuccessful dla konkretnego id
+     */
+    public static int dbGetUnsuccessful(int id) {
+        return dbGetValue(id, "unsuccessful");
     }
 
     /**
-     * Metoda wstawiająca podaną wartość do kolumny active podanego id
+     * Metoda zwiększająca wartość w tabeli successful o 1
      *
      * @param id
-     * @param value
      */
-    public static void dbSetActive(int id, int value) {
-        dbSetValue(id, "active", value);
+    public static void dbEarnedSuccessful(int id) {
+        int successful = dbGetSuccessful(id);
+        successful++;
+        dbSetSuccessful(id, successful);
     }
 
     /**
-     * Metoda zwracająca wartość kolumny CURR_LVL dla określonego ID
+     * Metoda zwiększająca wartość w tabeli unsuccessful o 1
      *
      * @param id
-     * @return
      */
-    public static int dbGetCurr_lvl(int id) {
-        return dbGetValue(id, "curr_lvl");
-    }
-
-    /**
-     * Metoda wstawiająca podaną wartość do kolumny CURR_LVL dla określonego ID
-     *
-     * @param id
-     * @param value
-     */
-    public static void dbSetCurr_lvl(int id, int value) {
-        dbSetValue(id, "curr_lvl", value);
-    }
-
-    /**
-     * Medota zwracająca wartość kolumny POINTS dla określonego ID
-     *
-     * @param id
-     * @return
-     */
-    public static int dbGetPoints(int id) {
-        return dbGetValue(id, "points");
-    }
-
-    /**
-     * Metoda wstawiająca podaną wartość do kolumny POINTS dla określonego ID
-     *
-     * @param id
-     * @param value
-     */
-    public static void dbSetPoints(int id, int value) {
-        dbSetValue(id, "points", value);
+    public static void dbEarnedUnsuccessful(int id) {
+        int unsuccessful = dbGetUnsuccessful(id);
+        unsuccessful++;
+        dbSetUnsuccessful(id, unsuccessful);
     }
 
     /**
      * Metoda zapisująca stan bazy i zamykająca połączenie.
      */
-    public static void dbEndConnection(){
+    public static void dbEndConnection() {
         try {
             dbCommit();
             dbBasics.c.close();
