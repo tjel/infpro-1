@@ -10,116 +10,25 @@ package mathgym;
  *
  * @author Krzych
  */
+import lombok.Getter;
+import lombok.Setter;
+
 public class Modul {
 
-    private static int lvl;
-    private static int maxNumber;
-    private static double points;
-    private static double cost;
-    private static double lvlUpCost;
-    private static boolean available;
+    @Setter @Getter private static int lvl;
+    @Setter @Getter private static int maxNumber;
+    @Setter @Getter private static double points;
+    @Setter @Getter private static double cost;
+    @Setter @Getter private static double lvlUpCost;
+    @Setter @Getter private static boolean available;
     private int answer;
-    
 
-    
-    
-    /**
-     * @return the lvl
-     */
-    public static int getLvl() {
-        return lvl;
-    }
-
-    /**
-     * @param aLvl the lvl to set
-     */
-    public static void setLvl(int aLvl) {
-        lvl = aLvl;
-    }
-
-    /**
-     * @return the maxNumber
-     */
-    public static int getMaxNumber() {
-        return maxNumber;
-    }
-
-    /**
-     * @param aMaxNumber the maxNumber to set
-     */
-    public static void setMaxNumber(int aMaxNumber) {
-        maxNumber = aMaxNumber;
-    }
-
-    /**
-     * @return the points
-     */
-    public static double getPoints() {
-        return points;
-    }
-
-    /**
-     * @param aPoints the points to set
-     */
-    public static void setPoints(double aPoints) {
-        points = aPoints;
-    }
-    
-    public void lvlUp(){
+    public void lvlUp() {
         System.out.println("LEVEL UP NOT SET");
-    }
-
-    public String getExercise() {
-        generate();
-        return "generate exercise not set";
-    }
-
-
-
-    /**
-     * @param aLvlUpCost the lvlUpCost to set
-     */
-    public static void setLvlUpCost(double aLvlUpCost) {
-        lvlUpCost = aLvlUpCost;
-    }
-
-    /**
-     * @return the lvlUpCost
-     */
-    public static double getLvlUpCost() {
-        return lvlUpCost;
-    }
-
-    /**
-     * @return the cost
-     */
-    public static double getCost() {
-        return cost;
-    }
-
-    /**
-     * @param aCost the cost to set
-     */
-    public static void setCost(double aCost) {
-        cost = aCost;
-    }
-
-    /**
-     * @return the available
-     */
-    public static boolean isAvailable() {
-        return available;
-    }
-
-    /**
-     * @param aAvailable the available to set
-     */
-    public static void setAvailable(boolean aAvailable) {
-        available = aAvailable;
     }
 
     public void generate() {
         System.out.print("error, generate from parent class");
     }
-  
+
 }
