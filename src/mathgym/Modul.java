@@ -30,5 +30,11 @@ public class Modul {
     public void generate() {
         System.out.print("error, generate from parent class");
     }
+    
+    
+    public int genExercise() {
+        return -1;
+    }
+
 
 }
