@@ -10,31 +10,39 @@ package mathgym;
  *
  * @author Krzych
  */
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Modul {
 
-    @Setter @Getter private static int lvl;
-    @Setter @Getter private static int maxNumber;
-    @Setter @Getter private static double points;
-    @Setter @Getter private static double cost;
-    @Setter @Getter private static double lvlUpCost;
-    @Setter @Getter private static boolean available;
-    private int answer;
+    private int id;
+    private String name;
+    private int curr_lvl;
+    private int cost;
+    private int points;
+    private int available;
+    private int active;
+    private int owned;
+    private int successful;
+    private int unsuccessful;
+    
+    public Modul(ArrayList<String> list) {
+        id = Integer.parseInt(list.get(0));
+        name = list.get(1);
+        curr_lvl = Integer.parseInt(list.get(2));
+        cost = Integer.parseInt(list.get(3));
+        points = Integer.parseInt(list.get(4));
+        available = Integer.parseInt(list.get(5));
+        active = Integer.parseInt(list.get(6));
+        owned = Integer.parseInt(list.get(7));
+        successful = Integer.parseInt(list.get(8));
+        unsuccessful = Integer.parseInt(list.get(9));
+                
+}
 
     public void lvlUp() {
         System.out.println("LEVEL UP NOT SET");
     }
-
-    public void generate() {
-        System.out.print("error, generate from parent class");
-    }
     
-    
-    public int genExercise() {
-        return -1;
-    }
-
-
 }
