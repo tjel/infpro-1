@@ -8,6 +8,7 @@ package mathgym.dbOps;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  * 
@@ -403,6 +404,22 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      */
     public static int dbGetUnsuccessful(int id) {
         return dbGetValue(id, "unsuccessful");
+    }
+    
+    public static ArrayList dbGetArrayListNames(){
+        String query = "SELECT name FROM modules";
+        ArrayList value = new ArrayList();
+        try {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String val = rs.getString("name");
+                value.add(val);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
+            //System.out.println("Error while getting value of " + column.toUpperCase() + ".");
+        }
+        return value;
     }
 
     /**
