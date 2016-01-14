@@ -30,20 +30,18 @@ public class Player {
         
         for(Object obj : _baza.dbGetArrayListModules()) {
             modules.add(obj);
-        }       
-    }
-    
-    public void setActive
-    
-    
-    public void challenge() {
-        if ( activeModule.genExercise() == 1) {
-            setPoints(getPoints()+activeModule.getPoints());
-            
         }
         
-        
-        
+        for(Modul m : modules) {
+            if(m.getActive() == 1) activeModule = m;
+        }
+    }
+    
+    public void activateModule(String _name) {
+        for(Modul m : modules) {
+            if (m.getActive() == 1) m.setActive(0);
+            if (m.getName().equals(_name)) m.setActive(1);
+        }
     }
 
 }
