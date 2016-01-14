@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import mathgym.Modul;
 
 /**
  * 
@@ -422,6 +423,29 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
         return value;
     }
 
+    public static ArrayList<Modul> dbGetArrayListModules() throws SQLException {
+        ResultSet rs = stmt.executeQuery("select * from modules");
+        ArrayList<Modul> modules = new ArrayList();
+        while (rs.next()) {
+            
+            ArrayList<String> list= new ArrayList();
+            list.add(Integer.toString(rs.getInt("id")));
+            list.add(rs.getString("name"));
+            list.add(Integer.toString(rs.getInt("curr_lvl")));
+            list.add(Integer.toString(rs.getInt("cost")));
+            list.add(Integer.toString(rs.getInt("points")));
+            list.add(Integer.toString(rs.getInt("available")));
+            list.add(Integer.toString(rs.getInt("active")));
+            list.add(Integer.toString(rs.getInt("owned")));
+            list.add(Integer.toString(rs.getInt("successful")));
+            list.add(Integer.toString(rs.getInt("unsuccessful")));
+            modules.add(new Modul(list));
+        }
+
+        rs.close();
+        System.out.println("Operation successful");
+        return modules;
+    }
     /**
      * Metoda zwiększająca wartość w tabeli successful o 1
      *
