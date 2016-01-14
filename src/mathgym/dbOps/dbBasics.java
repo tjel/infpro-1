@@ -108,18 +108,18 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * Uniwersalna metoda wstawiania wartości do bazy
      *
      * @param id
-     * @param what
+     * @param column
      * @param value
      */
-    private static void dbSetValue(int id, String what, int value) {
+    private static void dbSetValue(int id, String column, int value) {
         try {
-            String query = "UPDATE modules SET " + what + " = " + value + " WHERE id = " + id + ";";
+            String query = "UPDATE modules SET " + column + " = " + value + " WHERE id = " + id + ";";
             stmt.executeUpdate(query);
 
-            //System.out.println("Update " + what.toUpperCase() + " value was successful.");
+            //System.out.println("Update " + column.toUpperCase() + " value was successful.");
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Update " + what.toUpperCase() + " value was unsuccessful.");
+            System.out.println("Update " + column.toUpperCase() + " value was unsuccessful.");
         }
         dbCommitStack();
     }
@@ -129,19 +129,19 @@ public class dbBasics extends Thread { // dla obiektu z obsługą wątków
      * konkretnego id
      *
      * @param id Typu int określa moduł
-     * @param what Typu String określa kolumne
+     * @param column Typu String określa kolumne
      */
-    private static int dbGetValue(int id, String what) {
-        String query = "SELECT " + what + " FROM modules WHERE id =" + id + ";";
+    private static int dbGetValue(int id, String column) {
+        String query = "SELECT " + column + " FROM modules WHERE id =" + id + ";";
         int value = 0;
         try {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                value = rs.getInt(what);
+                value = rs.getInt(column);
             }
         } catch (SQLException ex) {
             Logger.getLogger(dbBasics.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error while getting value of " + what.toUpperCase() + ".");
+            System.out.println("Error while getting value of " + column.toUpperCase() + ".");
         }
         return value;
     }
