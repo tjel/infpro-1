@@ -14,7 +14,7 @@ import mathgym.dbOps.dbBasics;
  * @author student
  */
 public class MathGymGuiMain extends javax.swing.JFrame {
-    //MathGymGuiQuestion question;
+    MathGymGuiQuestion question;
     /**
      * Creates new form MathGymGuiMain
      */
@@ -88,6 +88,7 @@ public class MathGymGuiMain extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         jTextField1.setText(Integer.toString(dbBasics.dbGetCost(1)));
+        question.setVisible(true);  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
