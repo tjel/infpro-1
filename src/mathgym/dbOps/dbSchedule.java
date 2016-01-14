@@ -18,7 +18,7 @@ public class dbSchedule{
     /**
      * Konstruktor tworzący obietk typu Timer następnie wywołujący klase TimerTask.
      */
-    public dbSchedule(){
+    protected dbSchedule(){
         dbSchedule.dbTimer = new Timer();
         dbTimer.scheduleAtFixedRate(new dbTaskEvent(),10, seconds * 1000);
     }
