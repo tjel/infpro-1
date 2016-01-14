@@ -8,6 +8,8 @@ package mathgym;
 import mathgym.modules.Dodawanie;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import mathgym.dbOps.dbBasics;
 
 /**
  * aaaa
@@ -15,20 +17,26 @@ import java.util.List;
  * @author Krzych
  */
 public class Player {
+    
+            Scanner in = new Scanner(System.in);
+        int wybor;
 
-    private String name;
-    private int lvl;
-    private static double points;
+    
+
     List<Modul> modules;
     private Modul activeModule;
 
-    public Player(String name) {
-        this.name = name;
-        lvl = 1;
-        points = 0;
-        modules = new ArrayList();
+    public Player(dbBasics _baza) {
+        
+
+
+        modules = _baza.dbGetArrayListNames();
         modules.add(Dodawanie.getInstance());
         activeModule = Dodawanie.getInstance();
+    }
+    
+    public void checkDB() {
+        
     }
 
     /**
@@ -79,36 +87,13 @@ public class Player {
     }
     
     public void challenge() {
-        System.out.println(activeModule.getExercise());
+        if ( activeModule.genExercise() == 1) {
+            setPoints(getPoints()+activeModule.getPoints());
+            
+        }
         
-        /**
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         *       TU RÓB
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-        */
+        
+        
     }
 
 }
