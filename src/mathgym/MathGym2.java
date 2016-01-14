@@ -7,6 +7,7 @@ package mathgym;
 
 import java.util.*;
 import static mathgym.X_Sklep.getInstance;
+import mathgym.dbOps.dbBasics;
 import mathgym.modules.Dodawanie;
 
 /**
@@ -20,18 +21,27 @@ public class MathGym2 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         Scanner in = new Scanner(System.in);
         int wybor;
 
         System.out.println("Witaj");
-
-        Player gracz = new Player("Test");
+            
+        dbBasics Baza = new dbBasics();
+        
+        
+        
+        
+        
+        Player gracz = new Player(Baza);
         Player.setPoints(30);
 
-        System.out.println("1 - zadanie\n2 - moduly\n3-sklep\n0-pomoc");
+        System.out.println(gracz);
+        System.out.println("1 - zadanie\n2 - moduly\n3-sklep\n0-pomoc");    
+        
 
         while (true) {
+
             System.out.print("$ ");
             wybor = in.nextInt();
             if (wybor == 0) System.out.println("1 - zadanie\n2 - moduly\n3-sklep\n0-pomoc");
@@ -71,7 +81,6 @@ public class MathGym2 {
                     System.out.println(gracz);
                 }
             }
-            
             
         }
 
